@@ -1,13 +1,7 @@
-const express = require("express");
 const Discord = require("discord.js");
 require("dotenv").config();
 
 const client = new Discord.Client();
-const app = express();
-
-app.get("/", function (req, res) {
-  res.status(200).json({ message: "Hello" });
-});
 
 const Bot = () => {
   client.on("ready", () => {
@@ -33,4 +27,3 @@ const Bot = () => {
 };
 
 Bot();
-app.listen(process.env.PORT);
