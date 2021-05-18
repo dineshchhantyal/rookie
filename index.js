@@ -15,11 +15,13 @@ const Bot = () => {
     "K Cha Nanu Timro Kharab 👄",
   ];
   client.on("message", (msg) => {
+    console.log("MSG Coming", msg.content);
     const msg_lower = msg.content.toLowerCase();
     var reply_code = Math.floor(Math.random() * reply.length);
 
     if (msg_lower.includes("roo!")) {
       msg.reply(reply[reply_code]);
+      console.log("Msg Sent :::", reply[reply_code]);
     }
   });
 
