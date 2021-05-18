@@ -13,14 +13,9 @@ const reply = [
   "K Cha Nanu Timro Kharab 👄",
 ];
 client.on("message", (msg) => {
-  console.log(msg);
   const msg_lower = msg.content.toLowerCase();
-  console.log(msg_lower);
   var reply_code = Math.floor(Math.random() * reply.length);
-  if (msg_lower("welcome roo!") || msg_lower("roo! welcome")) {
-    msg.reply(reply[reply_code]);
-    return;
-  }
+
   if (msg_lower.includes("roo!")) {
     msg.reply(reply[reply_code]);
   }
