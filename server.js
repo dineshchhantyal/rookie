@@ -1,9 +1,9 @@
-const Discord = require("discord.js");
+const { Client, MessageEmbed } = require("discord.js");
 require("dotenv").config();
 
 const quoteGenerator = require("./scripts/quoteGenerator");
 
-const client = new Discord.Client();
+const client = new Client();
 
 const Bot = () => {
   client.on("ready", () => {
@@ -17,10 +17,15 @@ const Bot = () => {
     const [invoke, type] = msg_lower.split("!");
     if (invoke.trim() === "roo") {
       if (type.trim() == "quote") {
-        const reply = await quoteGenerator();
-        console.log("Reply >>>", reply);
-        console.log("Outgoing Message ===> ", reply);
-        msg.reply(reply);
+        const quote = await quoteGenerator();
+        console.log("quote >>>", quote);
+        console.log("Outgoing Message ===> ", quote);
+        console.log(msg);
+        const embed = new MessageEmbed()
+          .setTitle(msg.author.username)
+          .setColor(0xff0000)
+          .setDescription(quote.content);
+        msg.channel.send(embed);
       }
     }
   });
