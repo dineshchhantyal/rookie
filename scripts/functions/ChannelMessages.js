@@ -45,9 +45,6 @@ const getMessagesFromChannel = async (msg, type) => {
       JSON.stringify(finalArray.slice(80, 99), null, 2) +
       "\n```"
   );
-
-  //   console.log(finaArray.slice(-50));
-  //   msgSchema(msg, "```json \n " + JSON.stringify(finaArray.slice(-50)) + "\n");
 };
 
 module.exports = getMessagesFromChannel;
