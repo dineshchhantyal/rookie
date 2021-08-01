@@ -1,4 +1,4 @@
-const Users = require("./Schema/userSchema");
+const Users = require("../Schema/userSchema");
 
 const addNewUser = () => {
   // sample  {

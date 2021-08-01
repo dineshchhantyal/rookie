@@ -8,7 +8,7 @@ const quoteGenerator = () => {
     method: "GET",
     url: quoteURL,
     headers: {
-      "x-rapidapi-key": "5ee69e56c0msh0d7faa18e65f498p1bd58fjsn0244394c7ad3",
+      "x-rapidapi-key": process.env.XRAPIDAPIKEY,
       "x-rapidapi-host": "quotes15.p.rapidapi.com",
     },
   };
