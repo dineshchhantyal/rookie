@@ -1,6 +1,6 @@
-const joi = require("joi");
 const router = require("express").Router();
 
+const teamValidator = require("../Joe/teamValidator");
 const teamSchema = require("../Schema/teamSchema");
 
 router.get("/", function (req, res) {

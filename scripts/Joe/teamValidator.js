@@ -7,7 +7,7 @@ const teamValidator = Joi.object({
 
   projectName: Joi.string().alphanum().min(3).max(30),
 
-  description: Jio.object().key({
+  description: Joi.object({
     info: Joi.string().alphanum().min(3).max(30).required(),
     link: Joi.string().uri(),
     image: Joi.string().uri(),
