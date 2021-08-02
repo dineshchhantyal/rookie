@@ -38,7 +38,9 @@ mongoose.connect(
 mongoose.connection.once("open", () => {
   console.log("DB is connected");
 });
-
+app.get("/", (req, res) => {
+  res.json({ message: "Ramro Bato Ma Chas" });
+})
 app.post("/webhook", async (req, res) => {
   const Payload = req.body;
   //Respond To Heroku Webhook
