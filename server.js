@@ -18,7 +18,7 @@ app.use(morgan("common"));
 app.use(helmet());
 app.use(cors());
 if (build == "prod") {
-  const dbConnection = `mongodb+srv://077-BCT:${process.env.DBPASSWORD}@cluster0.r7knx.mongodb.net/studentCollection?retryWrites=true&w=majority`;
+   dbConnection = `mongodb+srv://077-BCT:${process.env.DBPASSWORD}@cluster0.r7knx.mongodb.net/studentCollection?retryWrites=true&w=majority`;
 } else {
   dbConnection = `mongodb://localhost:27017/rookie`;
 }
@@ -46,7 +46,7 @@ app.post("/webhook", async (req, res) => {
     const options = {
     method: "POST",
     url:
-     "https://discord.com/api/webhooks/XXXXXXXXXXXXXX",
+     process.env.DISCORDHOOKURL,
     headers: {
      "Content-type": "application/json",
     },
