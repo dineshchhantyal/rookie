@@ -33,14 +33,33 @@ mongoose.connect(
   }
 );
 
-mongoose.connection.once("open", () => {
-  console.log("DB is connected");
-});
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+  mongoose.connection.once("open", () => {
+    console.log("DB is connected");
+  });
+};
+app.post("/webhook", async (req, res) => {
+     const Payload = req.body;
+    //Respond To Heroku Webhook
+     res.sendStatus(200);
 
+     const options = {
+      method: "POST",
+      url:
+       "https://discord.com/api/webhooks/XXXXXXXXXXXXXX",
+      headers: {
+       "Content-type": "application/json",
+      },
+    //Format JSON DATA
+      body: JSON.stringify({
+       content: `This is A Webhook notification!A build for your app ${Payload.data.app.name} was just triggered`,
+      }),
+     };
+     request(options, function (error, response) {
+      if (error) throw new Error(error);
+      console.log(response);
+     });
+    });
 Bot();
 app.use("/team", team);
 
