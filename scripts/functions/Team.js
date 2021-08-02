@@ -1,57 +1,42 @@
 const msgSchema = require("../helpers_functions/msgSchema");
-const Teams = require("../../files/team.json").teams;
+const teamSchema = require("../Schema/teamSchema");
 
 const getTeam = (msg, type) => {
   const [original, teamName, operator, ...info] = type.toLowerCase().split(" ");
-  let teamInfo;
-  console.log("This are teams", Teams);
-  console.log("Info", info.join(" "));
-
-  if (teamName) {
-    if (!operator) {
-      if (Teams.findIndex((e) => e === teamName) != -1) {
-        teamInfo = require(`../../files/teams/${teamName}.json`);
-        msgSchema(
-          msg,
-          "**" +
-            teamName +
-            "** \n \n```json\n \n" +
-            JSON.stringify(teamInfo, null, 2) +
-            "\n```"
-        );
-      } else {
-        msgSchema(msg, "team not found", true);
-        return;
-      }
-    }
-  } else if (operator == "create") {
-    if (Teams.findIndex((e) => e === teamName) != -1) {
-      msgSchema(msg, "team already exists", true);
-    } else {
-      Teams.push(teamName.toLowerCase());
-      teamInfo = {
-        teams: teamName,
-        ...JSON.parse(info.join(" ")),
-      };
-      fs.writeFile(
-        `../../files/teams/${teamName}.json`,
-        JSON.stringify(teamInfo),
-        (err) => {
-          if (!err) {
-            msgSchema(
-              msg,
-              "**" +
-                teamName +
-                "** \n \n```json\n \n" +
-                JSON.stringify(teamInfo, null, 2) +
-                "\n```"
-            );
-          } else {
-            console.log(err);
+  let team;
+  console.log("Operatorrr", operator);
+  switch (operator) {
+    case "add":
+      team = new teamSchema({
+        name: teamName,
+        members: [msg.author.id],
+        message: null,
+        workingOn: null,
+      });
+      team.save();
+      break;
+    default:
+      if (teamName) {
+        teamSchema.find(
+          {
+            name: teamName,
+          },
+          (err, data) => {
+            if (err) {
+              console.log(err);
+              msgSchema(false, "error", true);
+            } else {
+              team = data;
+              console.log(data);
+            }
           }
-        }
-      );
-    }
+        );
+      }
+      if (team) {
+        msgSchema(msg, JSON.stringify(team, 0, 2), true);
+      } else {
+        msgSchema(msg, "Paila Team Banana \n Khatey", true);
+      }
   }
 };
 

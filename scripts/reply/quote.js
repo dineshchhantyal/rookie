@@ -1,5 +1,5 @@
 const msgSchema = require("../helpers_functions/msgSchema");
-const quoteGenerator = require("../helpers_functions/quoteGenerator");
+const quoteGenerator = require("../functions/quoteGenerator");
 
 const quoteReply = async (msg) => {
   const quote = await quoteGenerator();
