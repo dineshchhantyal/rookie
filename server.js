@@ -18,12 +18,12 @@ app.use(morgan("common"));
 app.use(helmet());
 app.use(cors());
 if (build == "prod") {
-  const dbConnetion = `mongodb+srv://077-BCT:${process.env.DBPASSWORD}@cluster0.r7knx.mongodb.net/studentCollection?retryWrites=true&w=majority`;
+  const dbConnection = `mongodb+srv://077-BCT:${process.env.DBPASSWORD}@cluster0.r7knx.mongodb.net/studentCollection?retryWrites=true&w=majority`;
 } else {
-  dbConnetion = `mongodb://localhost:27017/rookie`;
+  dbConnection = `mongodb://localhost:27017/rookie`;
 }
 mongoose.connect(
-  dbConnetion,
+  dbConnection,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
