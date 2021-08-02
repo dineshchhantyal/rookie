@@ -1,5 +1,6 @@
 const { Client, MessageEmbed } = require("discord.js");
 const getMessagesFromChannel = require("../scripts/functions/ChannelMessages");
+const getTeam = require("../scripts/functions/Team");
 
 const msgSchema = require("../scripts/helpers_functions/msgSchema");
 const quoteReply = require("../scripts/reply/quote");
@@ -32,6 +33,8 @@ const Bot = () => {
         // Database();
       } else if (type.trim().startsWith("messages")) {
         getMessagesFromChannel(msg, type);
+      } else if (type.trim().startsWith("team")) {
+        getTeam(msg, type.trim());
       }
     }
   });
