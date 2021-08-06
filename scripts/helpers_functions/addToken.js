@@ -12,18 +12,28 @@ const addToken = async (msg, type) => {
     const name = msg.author.username;
     // validating the input
     if (!rollno || rollno.toLowerCase() === "help") {
-        return msgSchema(msg, "OK! \n use !rooo token {rollno} {token}");
+        return msgSchema(msg, "OK! Buddy 😊\n use !rooo token {rollno} {token}");
     };
     if (rollno.toLowerCase() === "all") {
         data = await tokenSchema.find({}, { _id: false, __v: false });
-        return msgSchema(msg, "```js \n " + JSON.stringify(data, 0, 2) + "```");
+        return msgSchema(msg, "```json \n " + JSON.stringify(data, null, 2) + "\n```");
     };
+    if (rollno.toLowerCase() === "reset") {
+        await tokenSchema.findOneAndDelete({ name },);
+        return msgSchema(msg, "OK! \n token for " + name + " has been reset");
+    }
+    if (rollno.toLowerCase() === "me") {
+        data = await tokenSchema.findOne({ name }, {
+            "__v": false
+        });
+        return msgSchema(msg, "```json \n " + JSON.stringify(data, null, 2) + "\n```");
+    }
     try {
         validatedData = await tokenValidator.validateAsync({ name, rollno, token },);
     } catch (e) {
         // create array of error.details.messages
         const errorMessages = e.details.map(m => m.message);
-        return msgSchema(msg, "``` \n" + JSON.stringify(errorMessages[0]) + "```", true);
+        return msgSchema(msg, "```json \n" + JSON.stringify(errorMessages[0]) + "```", true);
         return;
     }
     // check if token and name already exists in tokenSchema collections mongo
