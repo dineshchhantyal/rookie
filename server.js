@@ -16,7 +16,11 @@ const team = require("./scripts/routes/team");
 app.use(express.json());
 app.use(morgan("common"));
 app.use(helmet());
-app.use(cors());
+app.use(cors(
+  {
+    origin: "*",
+  }
+));
 if (build == "prod") {
   dbConnection = `mongodb+srv://rookie:${process.env.DBPASSWORD}@cluster0.kjvqe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
   `;
