@@ -1,3 +1,3 @@
-build = "dev"; // dev or prod
+build = "prod"; // dev or prod
 
 module.exports = build;
