@@ -31,7 +31,6 @@ const addToken = async (msg, type) => {
     try {
         validatedData = await tokenValidator.validateAsync({ name, rollno, token },);
     } catch (e) {
-        // create array of error.details.messages
         const errorMessages = e.details.map(m => m.message);
         return msgSchema(msg, "```json \n" + JSON.stringify(errorMessages[0]) + "```", true);
         return;
@@ -47,17 +46,14 @@ const addToken = async (msg, type) => {
                 }
             }, { name: true });
         if (tokenExists) {
-            console.log("rooll", tokenExists)
 
             return msgSchema(msg, "Token already exists for USER : " + tokenExists.name + " \n --- ** To re-invoke ** --- \n *roo! token {rollno} {token} -u* ", true);
         }
-        console.log("Token doesnot exist")
         // check if rollno exists in tokenSchema collections mongo
         const rollnoExists = await tokenSchema.findOne({ rollno });
         if (rollnoExists) {
             return msgSchema(msg, "Rollno already exists for USER :" + rollnoExists.name + " \n --- ** To re-invoke ** --- \n *roo! token {rollno} {token} -u* ", true);
         }
-        console.log("Rollno doesnot exist")
         // check if name exists in tokenSchema collections mongo
         const nameExists = await tokenSchema.findOne({ name });
         if (nameExists) {
@@ -68,7 +64,6 @@ const addToken = async (msg, type) => {
         newToken.save(
             (err) => {
                 if (err) {
-                    console.log(err);
                     return msgSchema(msg, "Error while adding token \n Please try again", true);
                 }
                 return msgSchema(msg, "Token added successfully \n --- ** To re-invoke ** --- \n *roo! token {rollno} {token} -u* ", true);
@@ -77,16 +72,12 @@ const addToken = async (msg, type) => {
     } else {
         // update token
         const oldDoc = await tokenSchema.findOne({ name: name });
-        console.log("_id", oldDoc._id);
-        console.log("Updated", validatedData);
         tokenSchema.findOneAndUpdate({ _id: ObjectID(oldDoc._id) }, validatedData, {
             new: true
         }, (err, data) => {
             if (err) {
-                console.log(err);
                 return msgSchema(msg, "Error while updating token \n Please try again", true);
             }
-            console.log("Updated", data);
             return msgSchema(msg, "Token updated successfully", true);
         });
     }

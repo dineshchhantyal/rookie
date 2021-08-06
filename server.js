@@ -12,6 +12,7 @@ const build = require("./config.js");
 const app = express();
 const port = process.env.PORT || 5000;
 const team = require("./scripts/routes/team");
+const token = require("./scripts/routes/token");
 
 app.use(express.json());
 app.use(morgan("common"));
@@ -67,8 +68,9 @@ app.post("/webhook", async (req, res) => {
     console.log(response);
   });
 });
-Bot();
+// Bot();
 app.use("/team", team);
+app.use("/token", token)
 
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
