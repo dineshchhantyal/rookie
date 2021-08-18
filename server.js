@@ -68,7 +68,7 @@ app.post("/webhook", async (req, res) => {
     console.log(response);
   });
 });
-// Bot();
+Bot();
 app.use("/team", team);
 app.use("/token", token)
 
