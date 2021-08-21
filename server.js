@@ -23,12 +23,9 @@ app.use(cors(
     origin: "*",
   }
 ));
-if (build == "prod") {
-  dbConnection = `mongodb+srv://rookie:${process.env.DBPASSWORD}@cluster0.kjvqe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-  `;
-} else {
-  dbConnection = `mongodb://localhost:27017/rookie`;
-}
+
+dbConnection = build == "prod" ? process.env.PROD_DB : process.env.DEV_DB;
+
 mongoose.connect(
   dbConnection,
   {
