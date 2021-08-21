@@ -13,6 +13,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const team = require("./scripts/routes/team");
 const token = require("./scripts/routes/token");
+const mcq = require("./scripts/routes/mcq");
 
 app.use(express.json());
 app.use(morgan("common"));
@@ -71,6 +72,13 @@ app.post("/webhook", async (req, res) => {
 Bot();
 app.use("/team", team);
 app.use("/token", token)
+app.use("/mcq", mcq);
+
+// error handler
+app.use(function (err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
