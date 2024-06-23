@@ -24,7 +24,7 @@ app.use(cors(
   }
 ));
 
-dbConnection = build == "prod" ? process.env.PROD_DB : process.env.DEV_DB;
+dbConnection = build == "prod" ? process.env.PROD_DB_URL : process.env.DEV_DB_URL;
 
 mongoose.connect(
   dbConnection,
@@ -52,7 +52,7 @@ app.post("/webhook", async (req, res) => {
   const options = {
     method: "POST",
     url:
-      process.env.DISCORDHOOKURL,
+      process.env.DISCORD_HOOK_URL,
     headers: {
       "Content-type": "application/json",
     },

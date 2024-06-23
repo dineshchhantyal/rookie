@@ -36,7 +36,6 @@ router.post("/", function (req, res) {
       return;
     }
   });
-  console.log("dataaa", data);
   teamSchema.create(data, (err, team) => {
     if (err) {
       res.status(500).send(err);

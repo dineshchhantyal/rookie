@@ -41,7 +41,7 @@ const Bot = () => {
       }
     }
   });
-  client.login(process.env.ACESS_TOKEN);
+  client.login(process.env.DISCORD_ACCESS_TOKEN);
 };
 
 module.exports = Bot;
